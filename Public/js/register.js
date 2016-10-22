@@ -22,20 +22,26 @@ $(function(){
 			$(".alert-block").remove()
 			$.ajax({
 					type: "POST",
-					url: '/register',
+					url: registerUrl,
 					dataType: 'text',
 					cache:false,
 					data: {
 						"email":$("#email").val(),
 						"password":$.md5($('#password').val()),	
-						"inviteCode":$("#inviteCode").val(),
+						"invitecode":$("#inviteCode").val(),
 						"name":$("#email").val()
 						  }
 				}).done( function(data){
 						 /* alert("注册成功，点击确定转到登录界面开始登录。"); */
-						 alert("注册成功，我们给您发了一封Email，请点击Email里面的链接验证您的账号。");
-						   
-						window.location.href = "../../login.htm"/*tpa=https://www.ssjiasu.xyz/login*/;
+						 data = $.parseJSON(data);
+						 if (data['status'] == 0){
+						 	$("#message").html(palert(data['info'], "warning")).show();
+						 }else if (data['status'] ==1 ){
+						 	$("#message").html(palert(data['info'], "success")).show();
+						 }
+						setTimeout(function () { 
+					    	window.location.href = LoginUrl;    
+    					}, 1000);
 				}).fail( function(jqXHR, textStatus, errorThrown) {
 					var v=jqXHR;
 						var errmsg=v.responseText;

@@ -1,0 +1,57 @@
+<include file="./Apps/Home/View/loginheader.html" />
+
+<script type="text/javascript">
+    var logincheck = "{:U('Login/login','', '')}"
+    var loginsuccredirectUrl = "{:U('UserCenter/index','', '')}";
+</script>
+
+<script src="__PUBLIC__/js/login.js" ></script>
+
+
+
+
+<h3 class="text-muted"><a href="index.htm" >SS-Link SS账号</a></h3>
+</div>
+<div>
+
+    <form class="form" id="frmLogin">
+            <fieldset>
+            <legend>登录</legend>
+            <div class="control-group">
+                    <label class="control-label" for="email">Email </label>
+                    <div class="controls">
+                            <input type="text" class="input-large" id="email" name="email">
+                            <span class="help-inline"></span>
+                    </div>
+            </div>
+            <div class="control-group">
+                    <label class="control-label" for="password">密码</label>
+                    <div class="controls">
+                            <input type="password" class="input-small" id="password" name="password">
+                            <span class="help-inline"> <a href="forgot.htm" >密码忘了?</a></span>
+                    </div>
+            </div>
+
+            <div class="control-group">
+                    <div class="controls">
+                    <label class="checkbox inline"><input type="checkbox">记住我 </label>
+                    </div>
+            </div>
+
+
+            <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="login">登录</button>
+                    &nbsp;&nbsp; 
+            </div>
+            </fieldset>
+    </form>
+</div>
+
+<br/>
+<div id="message" style="display:None">
+
+</div>
+
+<include file="./Apps/Home/View/footer.html" />
+
+

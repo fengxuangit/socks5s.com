@@ -18,16 +18,23 @@ $(function(){
 			$(".alert-block").remove()
 			$.ajax({
 					type: "POST",
-					url: '/login',
+					url: logincheck,
 					dataType: 'text',
 					cache:false,
 					data: {
 						"email":$("#email").val(),
-						"redirect":$("#redirect").val(),
 						"password":$.md5($('#password').val())
-						  }
+					}
 				}).done( function(data){
-						window.location.href = $("#redirect").val();
+					data = $.parseJSON(data);
+					if (data['status'] == 0){
+						$("#message").html(palert(data['info'], "warning")).show();
+					}else if (data['status'] == 1){
+						 	$("#message").html(palert(data['info'], "success")).show();
+						 }
+						setTimeout(function () { 
+					    	window.location.href = loginsuccredirectUrl;    
+    					}, 1000);
 				}).fail( function(jqXHR, textStatus, errorThrown) {
 					var v=jqXHR;
 					var errmsg=v.responseText;
