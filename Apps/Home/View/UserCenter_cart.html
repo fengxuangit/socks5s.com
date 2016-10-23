@@ -1,0 +1,53 @@
+<include file="./Apps/Home/View/header.html" />
+
+<script>
+        function confirmEmpty(){
+            result=confirm("您确认要清空购物车吗？");
+            if ( ! result ){
+                    return false;
+            }
+            return false;
+        }
+</script>
+
+
+
+
+<h3>购物车</h3>
+
+<p>购物车中一共有 0 个产品: </p>
+
+<table class="table table-bordered table-striped">
+<thead>
+<tr>
+  <th>序号</th>
+  <th>服务名称</th>
+  <th width="80px">周期</th>
+  <th width="80px">价格</th>
+  <th width="80px">操作</th>
+</tr>
+<volist name="unpay" id="v">
+    <tr>
+            <td> {$i} </td> 
+            <td> 美国洛杉矶gr线路 (购买后可以随意切换线路)</td> 
+            <td> {$v.buytime}月 </td> 
+            <td> {$v.money} 元 </td> 
+            <td> <a class="btn btn-warning" href="?act=del&id={$v.id}">删除</a> </td> 
+    </tr>
+</volist>
+</thead>
+<tbody>
+</tbody>
+</table>
+
+
+<p>您可以执行如下操作：</p>
+<!--
+<a class="btn btn-inverse" href="/emptyCart" onclick="javascript:confirmEmpty();">清空购物车</a>
+-->
+<a class="btn btn-info" href="{:U('Index/buy', '', '')}">继续购物</a>
+<a id="btnPay" class="btn btn-success" href="javascript:void(0);">去结算</a>
+
+
+
+<include file="./Apps/Home/View/footer.html" />

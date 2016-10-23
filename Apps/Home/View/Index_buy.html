@@ -1,11 +1,20 @@
 <include file="./Apps/Home/View/header.html" />
 
-
+<script type="text/javascript">
+    var orderUrl = "{:U('UserCenter/cart','','')}";
+    var loginUrl = "{:U('Login/login','','')}";
+</script>
+<script src="__PUBLIC__/js/index.js" ></script>
 
 <h3 class="text-muted"><a href="index.htm" >SS-Link SS账号</a></h3>
 </div>
 
+<div id="message" style="display:None">
 
+</div>
+
+<form id="buyform" action="{:U('UserCenter/cart', '', '')}" method="post">
+<input type="hidden" value="1" name="times">
 <div class="hero-unit">
         <h2>欢迎选购SS账号(Shadowsocks账号)</h2>
         <p>
@@ -16,17 +25,15 @@
         </p>
 <div class="row">
         <div class="col-md-3 col-md-offset-3">
-        <a data="1" id="buy" class="btn btn-success btnOrder"> <i class="icon-shopping-cart icon-white"></i> 购买年付(70元/年)</a>
+        <a data="1" id="buy" class="btn btn-success btnOrder"> <i class="icon-shopping-cart icon-white"></i> 购买年付({$price*10}元/年)</a>
         </div>
 
         <div class="col-md-3 ">
-        <a data="2" id="buy"  class="btn btn-success btnOrderMonth"> <i class="icon-shopping-cart icon-white"></i> 购买月付(7元/月)</a>
+        <a data="2" id="buy"  class="btn btn-success btnOrderMonth"> <i class="icon-shopping-cart icon-white"></i> 购买月付({$price}元/月)</a>
         </div>
 </div>
-
-
-
-        <p>支持月付，7元/月，70元/年</p>
+</form>
+        <p>支持月付</p>
         <p>怎样选择购买哪个线路呢？答案如下：</p>
         <ol>
         <li>如果您是土豪，可以每个线路购买一个SS账号，都配置到客户端上，当一个线路出问题可以自动切换到别的节点上去。</li>
@@ -36,13 +43,13 @@
     </ol>
 
 
-<table class="table table-bordered" >
+<!-- <table class="table table-bordered" >
 <thead>
-<tr>
-<th>线路</th>
-<th>测试IP</th>
-<th width="120px"> </th>
-</tr>
+    <tr>
+    <th>线路</th>
+    <th>测试IP</th>
+    <th width="120px"> </th>
+    </tr>
 </thead>                
 <tbody>
 
@@ -50,13 +57,13 @@
             <td>美国硅谷T2线路 </td> 
             <td>204.74.208.2</td> 
             <td>
-            <a data="美国硅谷T2线路" class="btn btn-success btnOrder"> <i class="icon-shopping-cart icon-white"></i> 购买年付</a>
-            <a data="美国硅谷T2线路" class="btn btn-success btnOrderMonth"> <i class="icon-shopping-cart icon-white"></i> 购买月付</a>
+            <a data="T1" class="btn btn-success btnOrder"> <i class="icon-shopping-cart icon-white"></i> 购买年付</a>
+            <a data="T2" class="btn btn-success btnOrderMonth"> <i class="icon-shopping-cart icon-white"></i> 购买月付</a>
             </td>
     </tr>
    
 </tbody>
-</table>
+</table> -->
 
 
 

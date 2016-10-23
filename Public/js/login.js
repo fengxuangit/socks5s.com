@@ -30,11 +30,11 @@ $(function(){
 					if (data['status'] == 0){
 						$("#message").html(palert(data['info'], "warning")).show();
 					}else if (data['status'] == 1){
-						 	$("#message").html(palert(data['info'], "success")).show();
-						 }
+						 $("#message").html(palert(data['info'], "success")).show();
 						setTimeout(function () { 
 					    	window.location.href = loginsuccredirectUrl;    
     					}, 1000);
+					}
 				}).fail( function(jqXHR, textStatus, errorThrown) {
 					var v=jqXHR;
 					var errmsg=v.responseText;

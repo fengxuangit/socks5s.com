@@ -3,6 +3,14 @@ namespace Home\Controller;
 use Think\Controller;
 class LoginController extends Controller {
 
+    public function _initialize(){
+        if (!isset($_SESSION['username'])) {
+            $this->headermode = "guide";
+        }else{
+            $this->headermode = "user";
+        }
+    }
+
     public function index(){
         
     }

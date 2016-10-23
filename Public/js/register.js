@@ -38,10 +38,10 @@ $(function(){
 						 	$("#message").html(palert(data['info'], "warning")).show();
 						 }else if (data['status'] ==1 ){
 						 	$("#message").html(palert(data['info'], "success")).show();
+						 	setTimeout(function () { 
+					    		window.location.href = LoginUrl;    
+    						}, 1000);
 						 }
-						setTimeout(function () { 
-					    	window.location.href = LoginUrl;    
-    					}, 1000);
 				}).fail( function(jqXHR, textStatus, errorThrown) {
 					var v=jqXHR;
 						var errmsg=v.responseText;
