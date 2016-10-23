@@ -4,9 +4,7 @@ use Think\Controller;
 class IndexController extends Controller {
 
     public function _initialize(){
-        if (!isset($_SESSION['username'])) {
-            
-        }
+        $this->headermode = "index";
     }
 
     public function index(){
@@ -14,8 +12,10 @@ class IndexController extends Controller {
     }
 
     public function buy(){
+        $this->price = M('settings')->field('price')->find()['price'];
         $this->display();
     }
+
 
     public function download(){
 
@@ -31,6 +31,6 @@ class IndexController extends Controller {
 
 
     public function usage(){
-        
+    
     }
 }

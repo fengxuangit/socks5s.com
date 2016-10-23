@@ -5,6 +5,8 @@ return array(
     //standard configuration
     'DEFAULT_TIMEZONE'=>'Asia/ShangHai',//time setting
     'SESSION_AUTO_START' => true, //是否开启session
+    'DEFAULT_AJAX_RETURN' => 'JSON', //默认ajax返回格式 JSON
+    'SHOW_PAGE_TRACE'  => True, // 显示页面Trace信息
 
     //Tempate setting
     'TMPL_PARSE_STRING' => array(
