@@ -1,0 +1,45 @@
+<include file="./Apps/Home/View/header.html" />
+
+<script>
+        function confirmEmpty(){
+            result=confirm("您确认要清空购物车吗？");
+            if ( ! result ){
+                    return false;
+            }
+            return false;
+        }
+</script>
+
+
+
+
+<h3>购物车</h3>
+
+<p>购物车中一共有 0 个产品: </p>
+
+<table class="table table-bordered table-striped">
+<thead>
+<tr>
+  <th>序号</th>
+  <th>服务名称</th>
+  <th width="80px">周期</th>
+  <th width="80px">价格</th>
+  <th width="80px">操作</th>
+</tr>
+
+</thead>
+<tbody>
+</tbody>
+</table>
+
+
+<p>您可以执行如下操作：</p>
+<!--
+<a class="btn btn-inverse" href="/emptyCart" onclick="javascript:confirmEmpty();">清空购物车</a>
+-->
+<a class="btn btn-info" href="https://www.ssjiasu.xyz/buy">继续购物</a>
+<a id="btnPay" class="btn btn-success" href="javascript:void(0);">去结算</a>
+
+
+
+<include file="./Apps/Home/View/footer.html" />
