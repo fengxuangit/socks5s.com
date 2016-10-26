@@ -23,33 +23,74 @@
     <![endif]-->
 
     <link href="/webapp/shadow/Public//jqueryui/jquery-ui.css"  rel="stylesheet">
+<script src="/webapp/shadow/Public//js/jquery.min.js" ></script>
+<script src="/webapp/shadow/Public//js/jquery.validate.min.js" ></script>
+<script src="/webapp/shadow/Public//js/jquery.md5.js" ></script>
+<script src="/webapp/shadow/Public//js/jquery.blockUI.min.js" ></script>
+<script src="/webapp/shadow/Public//js/bootstrap.min.js" ></script>
+<script src="/webapp/shadow/Public//js/common.js" ></script>
 
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "../hm.baidu.com/hm.js-c010d8c64151fdb7de20b95b413127e3.js"/*tpa=https://hm.baidu.com/hm.js?c010d8c64151fdb7de20b95b413127e3*/;
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-
-
-
-  </head>
+</head>
 
   <body>
-
     <div class="container">
       <div class="header clearfix">
+  <?php switch($headermode): case "index": ?><nav>
+            <ul class="nav nav-pills pull-right">
+              <li role="presentation"><a href="<?php echo U('/', '', '');?>">Home</a></li>
+              <li role="presentation"><a href="<?php echo U('UserCenter/index', '', '');?>" >用户中心</a></li>
+              <li role="presentation"><a href="<?php echo U('Index/download', '', '');?>" >软件下载</a></li>
+              <li role="presentation"><a href="<?php echo U('Index/study', '', '');?>" >教程</a></li>
+            </ul>
+        </nav><?php break;?>
+
+      <?php case "usercenter": ?><!-- 登录过后 用户中心 -->
         <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation"><a href="#">Home</a></li>
-                        <li role="presentation"><a href="login-redirect=-my&a=1-1.htm" >用户中心</a></li>
-                        <li role="presentation"><a href="javascript:if(confirm(%27https://gfw88.xyz/dl/  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://gfw88.xyz/dl/%27" >软件下载</a></li>
-                        <li role="presentation"><a href="javascript:if(confirm(%27https://gfw88.xyz/archives/23  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://gfw88.xyz/archives/23%27" >教程</a></li>
-          </ul>
-        </nav>
+                <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a href="<?php echo U('/','','');?>">Home</a></li>
+                <li><a href="<?php echo U('UserCenter/cart', '', '');?>"><i class="icon-shopping-cart icon-white"></i> 购物车</a></li>
+                <li class="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-home icon-white"></i> 我的账户<b class="caret"></b> </a>
+                        <ul class="dropdown-menu">
+                                <li><a href="<?php echo U('UserCenter/index', '', '');?>"><i class="icon-home"></i> 账户概览</a></li>
+                                <li><a href="<?php echo U('UserCenter/order', '', '');?>"><i class="icon-file"></i> 我的订单</a></li>
+                                <li><a href="<?php echo U('UserCenter/account', '', '');?>"><i class="icon-bookmark"></i> 我的SS账号</a></li>
+                                <li><a href="<?php echo U('UserCenter/money', '', '');?>"><i class="icon-road"></i> 财务记录</a></li>
+                                <li><a href="<?php echo U('UserCenter/recharge', '', '');?>"><i class="icon-upload"></i> 账户充值</a></li>
+                                <li><a href="<?php echo U('UserCenter/changepwd', '', '');?>"><i class="icon-lock"></i> 修改密码</a></li>
+                                <li><a href="<?php echo U('UserCenter/changeemail', '', '');?>"><i class="icon-lock"></i> 修改邮箱</a></li>
+                                <li><a href="<?php echo U('Login/logout', '', '');?>"><i class="icon-eject"></i> 退出</a></li>
+                        </ul>
+                </li>
+
+                </ul>
+            </nav>
+            <h3 class="text-muted"><a href="https://www.ssjiasu.xyz/">SS-Link SS账号</a></h3>
+            </div>
+
+
+            <div class="btn-group">
+                    <a href="<?php echo U('UserCenter/index', '', '');?>" class="btn">概览</a>
+                    <a href="<?php echo U('UserCenter/order', '', '');?>" class="btn">订单</a>
+                    <a href="<?php echo U('UserCenter/account', '', '');?>" class="btn">SS账号</a>
+                    <a href="<?php echo U('UserCenter/money', '', '');?>" class="btn">财务</a>
+                    <a href="<?php echo U('UserCenter/recharge', '', '');?>" class="btn">充值</a>
+                    <a href="<?php echo U('UserCenter/problem', '', '');?>" class="btn">问题</a>
+                    <a href="<?php echo U('UserCenter/changepwd', '', '');?>" class="btn">修改密码</a>
+                    <a href="<?php echo U('UserCenter/changeemail', '', '');?>" class="btn">修改邮箱</a>
+                    <a href="<?php echo U('Login/logout', '', '');?>" class="btn">退出</a>
+            </div><?php break;?>
+
+     <!--  游客 -->
+      <?php case "guide": ?><nav>
+            <ul class="nav nav-pills pull-right">
+            <li role="presentation"><a href="<?php echo U('/', '', '');?>" >Home</a></li>
+            <li><a href="<?php echo U('Login/register', '', '');?>" >注册</a></li>
+            <li><a href="<?php echo U('Login/login', '', '');?>" >登录</a></li>
+            </ul>
+        </nav><?php break; endswitch;?>
+
+
                 <h3 class="text-muted"><a href="index.htm" >SS账号</a></h3>
       </div>
       <div class="jumbotron">
@@ -59,9 +100,9 @@ var _hmt = _hmt || [];
             <p>北美/欧洲/亚洲(日本新加坡)多条国际线路随意切换，不限次数，总有一条线路适合您！</p>
                 <p>7元/月，70元/年，不限流量，支持UDP转发，仅供一人使用。</p>
                 <p>
-                <a href="trial.htm"  class="btn btn-success" target="_blank">免费试用</a>
-                <a class="btn btn-warning " href="buy.htm" >购买SS账号</a>
-                <a href="javascript:if(confirm(%27https://blog.ssjiasu.xyz/archives/23  \n\nThis file was not retrieved by Teleport Ultra, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?%27))window.location=%27https://blog.ssjiasu.xyz/archives/23%27"  class="btn btn-danger " target="_blank">使用方法</a>
+                <a href="<?php echo U('Index/trial', '', '');?>"  class="btn btn-success" target="_blank">免费试用</a>
+                <a class="btn btn-warning " href="<?php echo U('Index/buy', '', '');?>" >购买SS账号</a>
+                <a href="<?php echo U('Index/usage', '', '');?>"  class="btn btn-danger " target="_blank">使用方法</a>
         </p>
       </div>
 
@@ -96,7 +137,7 @@ var _hmt = _hmt || [];
         -->
 
 
-      <footer class="footer">
+    <footer class="footer">
           <p>
           
       &copy; 2015 
@@ -114,7 +155,6 @@ var _hmt = _hmt || [];
     </div> <!-- /container -->
 
 
-<script src="/webapp/shadow/Public//js/jquery.min.js" ></script>
-<script src="/webapp/shadow/Public//js/bootstrap.min.js" ></script>
+
   </body>
 </html>
