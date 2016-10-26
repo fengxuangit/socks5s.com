@@ -1,15 +1,119 @@
 <include file="./Apps/Home/View/header.html" />
 
-<h3>账户概览</h3>
-<p>Email: hacktext@163.com</p>
-<p>姓名: hacktext@163.com</p>
-<p>手机号码: </p>
-<p>账户余额: 0.0 元</p>
-<p>帐号个数: 0</p>
-<p>享受折扣: 0 % OFF ( 最高 10 % )</p>
-<p>注册时间: 2016-10-20 18:27:48 </p>
+<script type="text/javascript">
+    var changepwdUrl = "{:U('UserCenter/changepwd', '', '')}";
+    var LoginUrl = "{:U('Login/login', '', '')}";
+</script>
 
+<switch name="centermode">
+    <case value="index">
+        <h3>账户概览</h3>
+        <p>Email: {$username}</p>
+        <p>姓名: {$username}</p>
+        <p>手机号码: </p>
+        <p>账户余额: 0.0 元</p>
+        <p>帐号个数: 0</p>
+        <p>享受折扣: 0 % OFF ( 最高 10 % )</p>
+        <p>注册时间: 2016-10-20 18:27:48 </p>
+    </case>
+    <case value="orders">
+        <h3>我的订单</h3>
+        <p>
+        在这里您可以看到自己的历史订单及其状态。
+        </p>
+        <p>
+        您的账户余额是 {$balance} 元。
+        </p>
 
+        <p>
+        一共有 {$ordernumber} 个订单，最多显示1000个订单。
+        </p>
+        <table class="table table-bordered table-hover" >
+            <thead>
+            <tr>
+            <th>订单ID</th>
+            <th width="150">订单提交时间</th>
+            <th width="50">总金额(元)</th>
+            <th width="50">状态</th>
+            <th >内容</th>
+            <th > </th>
+            </tr>
+            </thead>                
+            <tbody>
+            <volist name="pay" id="v">
+                <tr>
+                    <td>{$v.id}</td> 
+                    <td>{$v.time|date='Y-m-d H:i:s', ###}</td> 
+                    <td>{$v.money}</td> 
+                    <td>
+                        <if condition="$v.ispay eq 0">
+                            <span class="text-warning">未付款</span>
+                        <else/>
+                            <span class="text-success">已付款</span>
+                        </if>
+                        
+                    </td> 
+                    <td>1 个服务，总价 {$v.money} 元</td> 
+                    <td>
+                    <a orderId="276077" class="btn btn-primary btnPayOrder"  href="javascript:void(0);">用余额支付</a>
+                    <p> </p>
+                    <a orderId="276077" class="btn btn-danger btnCancelOrder " href="javascript:void(0);">取消订单</a>
+                    </td> 
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+    </case>
+    <case value="account">
+    </case>
+    <case value="money">
+    </case>
+    <case value="recharge">
+    </case>
+    <case value="problem">
+    </case>
+    <case value="changepwd">
+        <h3>密码修改</h3>
+        <form id="changepwdform" method="post" class="form-horizontal" action="{:U('UserCenter/changepwd', '', '')}" />
+            <fieldset>
+                <div class="control-group">
+                <label class="control-label" for="oldPassword">原密码</label>
+                <div class="controls">
+                    <input type="password" id="oldPassword" name="oldPassword" >
+                    <span class="help-inline"></span>
+                </div>
+                </div>
 
+                <div class="control-group">
+                        <label class="control-label" for="newPassword">新密码</label>
+                        <div class="controls">
+                                <input type="password" id="newPassword" name="newPassword" >
+                                <span class="help-inline"></span>
+                        </div>
+                </div>
+
+                <div class="control-group">
+                        <label class="control-label" for="newPassword2">确认密码</label>
+                        <div class="controls">
+                                <input type="password" id="newPassword2" name="newPassword2" >
+                                <span class="help-inline"></span>
+                        </div>
+                </div>
+                <br/>
+                <div class="control-group">
+                        <div class="controls">
+                                <button id="btnChpw" type="button" class="btn btn-primary">确定</button>
+                        </div>
+                </div>
+            </fieldset>
+        </form>
+    </case>
+    <case value="changeemail">
+    </case>
+</switch>
+
+<div id="message" style="display:None">
+
+</div>
 
 <include file="./Apps/Home/View/footer.html" />

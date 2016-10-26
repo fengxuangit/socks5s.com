@@ -26,4 +26,25 @@ function palert(message, mode){
             return alerthtml.format("alert-danger", "失败", message);
             break;
     }
+
 }
+
+ function AjaxReturn(url, request, method="post", successCallback, FailedCallback=null) {
+     //todo 检查状态，是否适合，如果不适合，则报错
+     $.ajax({ 
+         type: method,
+         url:url,
+         cache: false,
+         dataType: "json",
+         data: request
+     }).done(
+        function(response){
+            successCallback(response);
+        }
+     ).fail( function(jqXHR, textStatus, errorThrown) {
+         alert(errorThrown);
+     }).always( function(d) {
+     });
+}
+
+
