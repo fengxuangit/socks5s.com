@@ -5,6 +5,7 @@ use Think\Controller;
 class UserCenterController extends CommonController{
 
     public function _initialize(){
+        parent::_initialize();
         $this->price = M('settings')->getField('price');
         $this->headermode = "usercenter";
     }
@@ -22,10 +23,7 @@ class UserCenterController extends CommonController{
         #先找之前的记录
         $this->unpay = M('records')->where("user='%s' and ispay=0",array($username))->field('id, buytime, money')->select();
         if (IS_POST){
-            $tmparray = $this->unpay;
-            if (!isset($_SESSION['username'])){
-                $this->redirect('Login/login');
-            }        
+            $tmparray = $this->unpay;   
             #TODO check buytime Must be a multiple of 30.
             $bcount = GetMoneyCount(I('post.times'), $this->price);
             $data = array(
