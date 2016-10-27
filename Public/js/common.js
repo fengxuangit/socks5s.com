@@ -29,20 +29,20 @@ function palert(message, mode){
 
 }
 
- function AjaxReturn(url, request, method="post", successCallback, FailedCallback=null) {
+ function AjaxReturn(url, requestData, successCallback, FailedCallback=null) {
      //todo 检查状态，是否适合，如果不适合，则报错
      $.ajax({ 
-         type: method,
+         type: "POST",
          url:url,
          cache: false,
          dataType: "json",
-         data: request
+         data: requestData
      }).done(
-        function(response){
-            successCallback(response);
+        function (request){
+           successCallback(request) 
         }
      ).fail( function(jqXHR, textStatus, errorThrown) {
-         alert(errorThrown);
+         FailedCallback(errorThrown);
      }).always( function(d) {
      });
 }
