@@ -3,6 +3,7 @@
 <script type="text/javascript">
     var changepwdUrl = "{:U('UserCenter/changepwd', '', '')}";
     var LoginUrl = "{:U('Login/login', '', '')}";
+    var rechargeUrl = "{:U('UserCenter/recharge', '', '')}";
 </script>
 
 <switch name="centermode">
@@ -11,7 +12,7 @@
         <p>Email: {$username}</p>
         <p>姓名: {$username}</p>
         <p>手机号码: </p>
-        <p>账户余额: 0.0 元</p>
+        <p>账户余额: {$balance} 元</p>
         <p>帐号个数: 0</p>
         <p>享受折扣: 0 % OFF ( 最高 10 % )</p>
         <p>注册时间: 2016-10-20 18:27:48 </p>
@@ -69,6 +70,40 @@
     <case value="money">
     </case>
     <case value="recharge">
+    <div style="margin-left:auto; margin-right:auto;">
+        <h3 style="text-align:center; margin-left:auto; margin-right:auto;">充值</h3>
+        <div style="float:left; width:50%;">
+            点击这里 <strong><a href="{$buylink}" target="_black">充值</a></strong> 购买卡密, 填入这里。
+        </div>
+        <div>
+          
+            <form id="rechargeform" method="post" class="form-horizontal" action="{:U('UserCenter/recharge', '', '')}" />
+                <fieldset>
+                    <div class="control-group">
+                    <label class="control-label" for="cardnum">卡号</label>
+                    <div class="controls">
+                        <input type="text" id="cardnum" name="cardnum" >
+                        <span class="help-inline"></span>
+                    </div>
+                    </div>
+
+                    <div class="control-group">
+                            <label class="control-label" for="cardpass">卡密</label>
+                            <div class="controls">
+                                    <input type="password" id="cardpass" name="cardpass" >
+                                    <span class="help-inline"></span>
+                            </div>
+                    </div>
+                    <br/>
+                    <div class="control-group">
+                            <div class="controls">
+                                    <button id="btnrecharge" type="button" class="btn btn-primary">确定</button>
+                            </div>
+                    </div>
+                </fieldset>
+            </form>
+            </div>
+        </div>
     </case>
     <case value="problem">
     </case>
@@ -112,6 +147,7 @@
     </case>
 </switch>
 
+<br/>
 <div id="message" style="display:None">
 
 </div>

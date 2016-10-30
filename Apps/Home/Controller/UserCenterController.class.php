@@ -5,27 +5,28 @@ use Think\Controller;
 class UserCenterController extends CommonController{
 
     public function _initialize(){
+        parent::_initialize();
         $this->price = M('settings')->getField('price');
         $this->headermode = "usercenter";
+        
     }
 
     public function index(){
         $this->centermode = "index";
+        $this->username = I('session.username');
+        $this->balance = M('user')->where("username='%s'", array($this->username))->find()['balance'];
         $this->display();
     }
 
     public function cart(){
         $username = I('session.username');
-        if (!empty(I('get.act')) && I('get.act') == 'del'){
+        if (I('get.act') == 'del'){
             M('records')->where('id=%d', array(I('get.id')))->delete();   
         }
         #先找之前的记录
         $this->unpay = M('records')->where("user='%s' and ispay=0",array($username))->field('id, buytime, money')->select();
         if (IS_POST){
-            $tmparray = $this->unpay;
-            if (!isset($_SESSION['username'])){
-                $this->redirect('Login/login');
-            }        
+            $tmparray = $this->unpay;   
             #TODO check buytime Must be a multiple of 30.
             $bcount = GetMoneyCount(I('post.times'), $this->price);
             $data = array(
@@ -46,6 +47,7 @@ class UserCenterController extends CommonController{
     public function orders(){
         $this->centermode = 'orders';
         $username = I('session.username');
+        
         //查找用户账户余额
         $this->balance = M('user')->where("username='%s'",array($username))->getField('balance');
         $this->pay = M('records')->where("user='%s'",array($username))->order('time desc')->select();
@@ -58,7 +60,21 @@ class UserCenterController extends CommonController{
 
     public function recharge(){
         $this->centermode = 'recharge';
-        
+        if (IS_POST){
+            $card = M('card')->where("cardnum='%s' and cardpass='%s'", array(I('post.cardnum'), I('post.cardpass')))->find();
+            if ($card){
+                M('user')->where("username='%s'", array(I('session.username')))->save(array('balance'=>$card['money']));
+                M('card')->where("cardnum='%s' and cardpass='%s'", array(I('post.cardnum'), I('post.cardpass')))->save(array('status'=>1));
+                $data['status'] = 1;
+                $data['message'] = "成功充值" . $card['money'] . "元!";
+                $data['url'] = U('usercenter/index');
+            }else{
+                $data['status'] = 0;
+                $data['message'] = "充值失败";
+            }
+            $this->ajaxReturn($data);
+        }
+        $this->buylink = M('settings')->find()['buylink'];
         $this->display('index');
     }
 
@@ -85,6 +101,19 @@ class UserCenterController extends CommonController{
         }
 
         $this->display('index');
+    }
+
+
+    public function problem(){
+
+    }
+
+    public function money(){
+        
+    }
+
+    public function changeemail(){
+
     }
 
 }
