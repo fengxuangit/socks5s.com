@@ -4,6 +4,7 @@
     var changepwdUrl = "{:U('UserCenter/changepwd', '', '')}";
     var LoginUrl = "{:U('Login/login', '', '')}";
     var rechargeUrl = "{:U('UserCenter/recharge', '', '')}";
+    var orderUrl = "{:U('UserCenter/orders', '', '')}";
 </script>
 
 <switch name="centermode">
@@ -56,9 +57,9 @@
                     </td> 
                     <td>1 个服务，总价 {$v.money} 元</td> 
                     <td>
-                    <a orderId="276077" class="btn btn-primary btnPayOrder"  href="javascript:void(0);">用余额支付</a>
+                    <a orderId="{$v.id}" id="payorder" class="btn btn-primary btnPayOrder"  href="javascript:void(0);">用余额支付</a>
                     <p> </p>
-                    <a orderId="276077" class="btn btn-danger btnCancelOrder " href="javascript:void(0);">取消订单</a>
+                    <a orderId="{$v.id}" id="delorder" class="btn btn-danger btnCancelOrder" href="javascript:void(0);">取消订单</a>
                     </td> 
                 </tr>
             </volist>
@@ -66,8 +67,57 @@
         </table>
     </case>
     <case value="account">
+    <h3>我的账号</h3>
+        
+
+        <table class="table table-bordered table-hover" >
+            <thead>
+            <tr>
+            <th width="10%">id</th>
+            <th width="30%">到期时间</th>
+            <th width="10%">端口号</th>
+            <th width="40%">密码</th>
+            <th width="10%">操作</th>
+            </tr>
+            </thead>                
+            <tbody>
+            <volist name="accounts" id="v">
+                <tr>
+                    <td>{$i}</td> 
+                    <td>{$v.expire|date='Y-m-d H:i:s', ###}</td> 
+                    <td>{$v.port}</td> 
+                    <td>{$v.sspass}</td>
+                    <td>
+                    <a orderId="{$v.id}" id="payorder" class="btn btn-primary btnPayOrder"  href="javascript:void(0);">修改密码</a>
+                    </td>
+                </tr>
+            </volist>
+            </tbody>
+        </table>
     </case>
     <case value="money">
+
+        <h3>充值记录</h3>
+        
+
+        <table class="table table-bordered table-hover" >
+            <thead>
+            <tr>
+            <th width="10%">id</th>
+            <th width="30%">充值金额</th>
+            <th width="10%">充值时间</th>
+            </tr>
+            </thead>                
+            <tbody>
+            <volist name="moneys" id="v">
+                <tr>
+                    <td>{$i}</td>
+                    <td>{$v.money}</td>
+                    <td>{$v.create_at|date='Y-m-d H:i:s', ###}</td> 
+                </tr>
+            </volist>
+            </tbody>
+        </table>
     </case>
     <case value="recharge">
     <div style="margin-left:auto; margin-right:auto;">

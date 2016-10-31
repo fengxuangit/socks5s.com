@@ -1,6 +1,7 @@
 <?php
 //打折信息
 function GetMoneyCount($month, $price){
+    $month = $month / 30;
     switch ($month) {
         case 1:
             return $price;
@@ -12,7 +13,8 @@ function GetMoneyCount($month, $price){
             return $price * ($month - 2) ;
             break;
     }
-    
- }
+}
+
+
 
 ?>

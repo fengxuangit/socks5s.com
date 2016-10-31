@@ -30,7 +30,7 @@
     <tr>
             <td> {$i} </td> 
             <td> 美国洛杉矶gr线路 (购买后可以随意切换线路)</td> 
-            <td> {$v.buytime}月 </td> 
+            <td> {$v['buytime']/30} 月 </td> 
             <td> {$v.money} 元 </td> 
             <td> <a class="btn btn-warning" href="?act=del&id={$v.id}">删除</a> </td> 
     </tr>
@@ -46,7 +46,7 @@
 <a class="btn btn-inverse" href="/emptyCart" onclick="javascript:confirmEmpty();">清空购物车</a>
 -->
 <a class="btn btn-info" href="{:U('Index/buy', '', '')}">继续购物</a>
-<a id="btnPay" class="btn btn-success" href="javascript:void(0);">去结算</a>
+<a id="btnPay" class="btn btn-success" href="{:U('UserCenter/orders', '', '')}">去结算</a>
 
 
 
