@@ -27,4 +27,6 @@ return array(
     //input filter
     'DEFAULT_FILTER' => 'strip_tags,stripslashes',
 
+    'ONE_DAY_UNIX'  => 86400,   //一天的unix时间戳
+
 );

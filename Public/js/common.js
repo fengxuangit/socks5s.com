@@ -29,11 +29,11 @@ function palert(message, mode){
 
 }
 
- function AjaxReturn(url, requestData, successCallback, FailedCallback=null) {
+ function AjaxReturn(requestUrl, requestData, successCallback, FailedCallback=null) {
      //todo 检查状态，是否适合，如果不适合，则报错
      $.ajax({ 
          type: "POST",
-         url:url,
+         url:requestUrl,
          cache: false,
          dataType: "json",
          data: requestData
@@ -42,9 +42,9 @@ function palert(message, mode){
            successCallback(request) 
         }
      ).fail( function(jqXHR, textStatus, errorThrown) {
-         FailedCallback(errorThrown);
+         FailedCallback(jqXHR, textStatus, errorThrown);
      }).always( function(d) {
-     });
+    });
 }
 
 
