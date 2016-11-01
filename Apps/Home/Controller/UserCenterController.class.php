@@ -149,13 +149,16 @@ class UserCenterController extends CommonController{
     public function account(){
         $this->centermode = 'account';
         $user = M('user')->where("username='%s'", array(I('session.username')))->find();
-        $this->accounts = array(
-            0 => array(
-                'expire'    => time() + ($user['buytime'] * C('ONE_DAY_UNIX')),
-                'port'      => $user['port'],
-                'sspass'    => $user['sspass'],
-            ),
-        );
+        if ($user['sspass'] != ""){
+            $this->accounts = array(
+                0 => array(
+                    'expire'    => time() + ($user['buytime'] * C('ONE_DAY_UNIX')),
+                    'port'      => $user['port'],
+                    'sspass'    => $user['sspass'],
+                ),
+            );
+        }
+        
         $this->display('index');
     }
 
@@ -184,6 +187,7 @@ class UserCenterController extends CommonController{
                 }
                 
             }
+            session_unset("username");
             $this->ajaxReturn($response);
         }
 

@@ -25,8 +25,14 @@ return array(
     'DB_DEBUG' => TRUE,
 
     //input filter
-    'DEFAULT_FILTER' => 'strip_tags,stripslashes',
+    'DEFAULT_FILTER' => 'trim,strip_tags,stripslashes',
 
     'ONE_DAY_UNIX'  => 86400,   //一天的unix时间戳
+
+    //EMAIL SETTINGS 
+    'MAIL_ADDRESS'=>'heyongjie520@sohu.com', // 邮箱地址
+    'MAIL_SMTP'=>'smtp.sohu.com', // 邮箱SMTP服务器
+    'MAIL_LOGINNAME'=>'heyongjie520@sohu.com', // 邮箱登录帐号
+    'MAIL_PASSWORD'=>'hyj123480', // 邮箱密码
 
 );

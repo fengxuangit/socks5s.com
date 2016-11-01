@@ -129,6 +129,90 @@ $(function(){
         });
     });
      
+    //找回密码
+    $('#findpwd').click(function (){
+        var response = {'email':$('#email').val(), 'step':$('#findpwd').attr('value')};
+        AjaxReturn(forgoturl, response, 
+            function(response){
+                if (response['status'] == 1){
+                    $("#message").html(palert(response['message'], "success")).show();
+                }else if(response['status'] == 0){
+                    $("#message").html(palert(response['message'], "error")).show();
+                }
+                if (response['url'] != null){
+                    setTimeout(function () { 
+                        window.location.href = response['url'];    
+                    }, 2000);
+                }
+            },
+            function (jqXHR, textStatus, errorThrown){
+                alert(jqXHR);
+                alert(textStatus);
+                alert(errorThrown);
+            }
+        );
+    });
+
+
+    //邮箱验证吗确认
+    $('#getcode').click(function (){
+        var response = {'emailverity':$('#verify').val()};
+        AjaxReturn(forgot2url, response, 
+            function(response){
+                if (response['status'] == 1){
+                    $("#message").html(palert(response['message'], "success")).show();
+                }else if(response['status'] == 0){
+                    $("#message").html(palert(response['message'], "error")).show();
+                }
+                if (response['url'] != null){
+                    setTimeout(function () { 
+                        window.location.href = response['url'];    
+                    }, 2000);
+                }
+            },
+            function (jqXHR, textStatus, errorThrown){
+                alert(jqXHR);
+                alert(textStatus);
+                alert(errorThrown);
+            }
+        );
+    });
+
+
+    //邮箱验证吗确认
+    $('#reset').click(function (){
+
+        if($('#password').val().length < 6){
+            alert("对不起,密码不能少于6位!");
+            return false;
+        }
+
+        if ($('#password').val() != $('#password2').val()){
+            alert("对不起,两次密码不一致!");
+            return false;
+        }
+        var request = {"newPassword":$('#password').val()};
+
+        AjaxReturn(reseturl, request, 
+            function(response){
+                if (response['status'] == 1){
+                    $("#message").html(palert(response['message'], "success")).show();
+                }else if(response['status'] == 0){
+                    $("#message").html(palert(response['message'], "error")).show();
+                }
+                if (response['url'] != null){
+                    setTimeout(function () { 
+                        window.location.href = response['url'];    
+                    }, 2000);
+                }
+            },
+            function (jqXHR, textStatus, errorThrown){
+                alert(jqXHR);
+                alert(textStatus);
+                alert(errorThrown);
+            }
+        );
+    });
 
 
 });
