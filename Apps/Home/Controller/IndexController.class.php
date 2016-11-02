@@ -8,17 +8,21 @@ class IndexController extends Controller {
     }
 
     public function index(){
+        $this->indexmode = 'index';
         $this->display();
     }
 
     public function buy(){
+        $this->indexmode = 'buy';
         $this->price = M('settings')->field('price')->find()['price'];
-        $this->display();
+        $this->display('index');
     }
 
 
     public function download(){
+        $this->indexmode = 'download';
 
+        $this->display('index');
     }
 
     public function study(){
@@ -31,6 +35,9 @@ class IndexController extends Controller {
 
 
     public function usage(){
+        $this->indexmode = 'usage';
+
+        $this->display('index');
     
     }
 }
