@@ -171,6 +171,7 @@ class UserCenterController extends CommonController{
                     'status'   => 0,
                     'message'  => '原密码不正确! 请重新输入',
                 );
+                $this->ajaxReturn($response);
             }else{
                 $flag = M('user')->where("username='%s'", array(I('session.username')))->setField('password', md5(I('post.newPassword')));
                 if ($flag){
