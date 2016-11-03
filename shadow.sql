@@ -29,7 +29,10 @@ CREATE TABLE `s_cardpass` (
   `status` int(11) DEFAULT '-1',
   `user` varchar(200) DEFAULT NULL,
   `money` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `i_cardnum` (`cardnum`),
+  KEY `i_cardpass` (`cardpass`),
+  KEY `i_status` (`status`)
 ) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -57,7 +60,10 @@ CREATE TABLE `s_host` (
   `usage` varchar(45) DEFAULT NULL,
   `port` int(11) NOT NULL DEFAULT '20000',
   `zone` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `i_hostip` (`hostip`),
+  KEY `i_zone` (`zone`),
+  KEY `i_port` (`port`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -84,7 +90,8 @@ CREATE TABLE `s_recharge` (
   `money` varchar(45) DEFAULT NULL,
   `ssid` varchar(45) DEFAULT NULL,
   `create_at` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `i_user` (`user`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -113,7 +120,7 @@ CREATE TABLE `s_records` (
   `time` int(11) NOT NULL,
   `money` float NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,7 +129,7 @@ CREATE TABLE `s_records` (
 
 LOCK TABLES `s_records` WRITE;
 /*!40000 ALTER TABLE `s_records` DISABLE KEYS */;
-INSERT INTO `s_records` VALUES (21,'hack@qq.com',0,30,1477234802,7),(22,'jack@qq.com',1,30,1477825753,7),(25,'jack@qq.com',1,360,1477915470,70),(26,'jack@qq.com',1,30,1477920041,7),(27,'jack@qq.com',1,30,1477920140,7),(28,'jack@qq.com',1,360,1477920253,70),(31,'jack@qq.com',1,30,1477923252,7),(32,'qwert@qq.com',1,30,1477976333,7),(33,'qwert@qq.com',1,30,1477976698,7),(34,'qwert@qq.com',1,30,1477976721,7);
+INSERT INTO `s_records` VALUES (21,'hack@qq.com',0,30,1477234802,7),(22,'jack@qq.com',1,30,1477825753,7),(25,'jack@qq.com',1,360,1477915470,70),(26,'jack@qq.com',1,30,1477920041,7),(27,'jack@qq.com',1,30,1477920140,7),(28,'jack@qq.com',1,360,1477920253,70),(31,'jack@qq.com',1,30,1477923252,7),(32,'qwert@qq.com',1,30,1477976333,7),(33,'qwert@qq.com',1,30,1477976698,7),(34,'qwert@qq.com',1,30,1477976721,7),(35,'hacktext@163.com',0,30,1478096480,7),(36,'hacktext@163.com',0,360,1478096492,70);
 /*!40000 ALTER TABLE `s_records` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -138,7 +145,8 @@ CREATE TABLE `s_settings` (
   `price` int(11) DEFAULT NULL,
   `buylink` varchar(200) DEFAULT NULL,
   `allzone` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `i_buylink` (`buylink`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -164,7 +172,9 @@ CREATE TABLE `s_ssaccount` (
   `port` int(11) DEFAULT NULL,
   `pass` varchar(45) DEFAULT NULL,
   `status` int(11) DEFAULT '0',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `i_port` (`port`),
+  KEY `i_pass` (`pass`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10637 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -197,8 +207,11 @@ CREATE TABLE `s_user` (
   `port` int(11) DEFAULT NULL,
   `sspass` char(32) DEFAULT NULL,
   `emailverify` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`,`email`),
+  KEY `i_port` (`port`),
+  KEY `i_pass` (`sspass`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -207,7 +220,7 @@ CREATE TABLE `s_user` (
 
 LOCK TABLES `s_user` WRITE;
 /*!40000 ALTER TABLE `s_user` DISABLE KEYS */;
-INSERT INTO `s_user` VALUES (18,'heyj@knownsec.com','1e38de0a85d4178ac353e165aabba0ab','heyj@knownsec.com','',0,1478080006,0,NULL,NULL,NULL),(19,'hacktext@163.com','1e38de0a85d4178ac353e165aabba0ab','hacktext@163.com','',0,1478087759,0,NULL,NULL,NULL),(20,'978348306@qq.com','3c92ff60e7b0b08aad528d4e4bb72c03','978348306@qq.com','',0,1478089612,0,NULL,NULL,NULL);
+INSERT INTO `s_user` VALUES (18,'heyj@knownsec.com','1e38de0a85d4178ac353e165aabba0ab','heyj@knownsec.com','',0,1478080006,0,NULL,NULL,NULL),(19,'hacktext@163.com','1e38de0a85d4178ac353e165aabba0ab','hacktext@163.com','',0,1478087759,0,NULL,NULL,NULL),(20,'978348306@qq.com','3c92ff60e7b0b08aad528d4e4bb72c03','978348306@qq.com','',0,1478089612,0,NULL,NULL,NULL),(21,'865711739@qq.com','cc03e747a6afbbcbf8be7668acfebee5','865711739@qq.com','',0,1478141872,0,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `s_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -220,4 +233,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-02 21:57:10
+-- Dump completed on 2016-11-03 23:07:28
