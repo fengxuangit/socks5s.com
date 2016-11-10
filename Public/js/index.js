@@ -290,6 +290,43 @@ $(function(){
     });
 
 
+    //修改SS账号密码
+    //修改密码
+     $('#btnChsspw').click(function () {
+
+        if($('#newPassword').val().length < 6){
+            alert("对不起,密码不能少于6位!");
+            return false;
+        }
+
+        if ($('#newPassword').val() != $('#newPassword2').val()){
+            alert("对不起,两次密码不一致!");
+            return false;
+        }
+        var request = {"newPassword":$('#newPassword').val(), 'verify':$("input[name='verify']").val()};
+
+        AjaxReturn(changesspwdUrl, request,
+            function(response){
+                if (response['status'] == 1){
+                    $("#message").html(palert(response['message'], "success")).show();
+                }else if(response['status'] == 0){
+                    $("#message").html(palert(response['message'], "error")).show();
+                }
+                if (response['url'] != null){
+                    setTimeout(function () { 
+                        window.location.href = response['url'];    
+                    }, 1000);
+                }
+            },
+            function (jqXHR, textStatus, errorThrown){
+                alert(jqXHR);
+                alert(textStatus);
+                alert(errorThrown);
+            }
+        );
+     });
+
+
 });
 
 

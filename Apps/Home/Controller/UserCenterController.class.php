@@ -11,6 +11,16 @@ class UserCenterController extends CommonController{
         
     }
 
+        
+    public function test(){
+        exec('unset DYLD_LIBRARY_PATH ;');
+        putenv('DYLD_LIBRARY_PATH');
+        putenv('DYLD_LIBRARY_PATH=/usr/bin');
+        $cmd = "python /Users/apple/wwwroot/webapp/shadow/script/reduce.py -z fuck01 -m async -p 10012 ";
+        exec(sprintf("%s > /tmp/null 2>&1 & ", $cmd));
+    }
+
+    
     public function index(){
         $this->centermode = "index";
         $this->username = I('session.username');
@@ -18,12 +28,13 @@ class UserCenterController extends CommonController{
         $this->display();
     }
 
+
     public function cart(){
         $username = I('session.username');
         if (I('get.act') == 'del'){
             M('records')->where('id=%d', array(I('get.id')))->delete();   
         }
-        #先找没有付款的记录
+        # 先找没有付款的记录
         $this->unpay = M('records')->where("user='%s' and ispay=0",array($username))->field('id, buytime, money')->select();
         if (IS_POST){
             $tmparray = $this->unpay;   
@@ -71,7 +82,14 @@ class UserCenterController extends CommonController{
                     $this->ajaxReturn($response);
                 }
                 //更新使用时间,ss账号
-                M('user')->where("username='%s'", array(I('session.username')))->setField(array('port'=>$account['port'], 'sspass'=>$account['pass'], 'buytime'=>$records['buytime'], 'balance'=>$user['balance']-$records['money']));
+                M('user')->where("username='%s'", array(I('session.username')))->setField(array(
+                        'port'=>$account['port'], 
+                        'sspass'=>$account['pass'], 
+                        'buytime'=>$records['buytime'], 
+                        'balance'=>$user['balance']-$records['money'],
+                        'streamcount'=>streamCount($records['money']),
+                        )
+                );
                 M('ssaccount')->where("port=%d", array($account['port']))->setField('status', 1);
             }else{
             //已经有了购买记录，只添加时间。
@@ -155,10 +173,41 @@ class UserCenterController extends CommonController{
                     'expire'    => time() + ($user['buytime'] * C('ONE_DAY_UNIX')),
                     'port'      => $user['port'],
                     'sspass'    => $user['sspass'],
+                    'streamcount' => $user['streamcount'],
                 ),
             );
+            $this->servers = M('host')->field('domain,hoststatus')->select();
         }
-        
+        $this->display('index');
+    }
+
+
+    #需要同步到集群数据库中
+    public function changesspwd(){
+        $this->centermode = 'changesspwd';
+
+        if (IS_POST){
+            $code = I('post.verify');
+            if(!check_verity($code)){
+                $data['status'] = 0;
+                $data['message'] = "验证码不正确!";
+                $this->ajaxReturn($data);
+            }
+            $user = M('user')->where("username='%s'", array(I('session.username')))->find();
+            M('user')->where("username='%s'", array(I('session.username')))->setField('sspass', I('post.newPassword'));
+
+            M('ssaccount')->where("port=%d", array($user['port']))->setField('pass', I('post.newPassword'));
+            exec('unset DYLD_LIBRARY_PATH ;');
+            putenv('DYLD_LIBRARY_PATH');
+            putenv('DYLD_LIBRARY_PATH=/usr/bin');
+            $cmd = "python /Users/apple/wwwroot/webapp/shadow/script/reduce.py -z fuck01 -m async -p ".$user['port'] . " >/tmp/null 2>&1 &";
+            shell_exec($cmd);
+            $data['status'] = 1;
+            $data['message'] = "修改密码成功, 请稍等, 五分钟之内生效!";
+            $data['url'] = U('UserCenter/account', '', '');
+            $this->ajaxReturn($data);
+        }
+
         $this->display('index');
     }
 
@@ -206,4 +255,17 @@ class UserCenterController extends CommonController{
         $this->moneys = M('recharge')->where("user='%s'", array(I('session.username')))->select();
         $this->display('index');
     }
+
+
+
+    public function verity(){
+        $config = array(
+            'fontSize' => '18',
+            'length' => 3,
+            'useNoise' => false,
+        );
+        $verify = new \Think\Verify($config);
+        $verify->entry();
+}
+
 }

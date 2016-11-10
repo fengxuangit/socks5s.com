@@ -15,6 +15,19 @@ function GetMoneyCount($month, $price){
     }
 }
 
+function streamCount($money){
+    switch ($money) {
+        case 7:
+            return 30 * 1024 * 1024;
+            break;
+        case 70:
+            return 60 * 1024 * 1024;
+        break;
+    }
+}
+
+
+
 //发送邮件
 function SendMail($address, $title, $message){
     vendor('PHPMailer.class#phpmailer');

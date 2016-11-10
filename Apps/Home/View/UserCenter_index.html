@@ -2,6 +2,7 @@
 
 <script type="text/javascript">
     var changepwdUrl = "{:U('UserCenter/changepwd', '', '')}";
+    var changesspwdUrl = "{:U('UserCenter/changesspwd', '', '')}";
     var LoginUrl = "{:U('Login/login', '', '')}";
     var rechargeUrl = "{:U('UserCenter/recharge', '', '')}";
     var orderUrl = "{:U('UserCenter/orders', '', '')}";
@@ -74,9 +75,10 @@
             <thead>
             <tr>
             <th width="10%">id</th>
-            <th width="30%">到期时间</th>
+            <th width="35%">到期时间</th>
             <th width="10%">端口号</th>
-            <th width="40%">密码</th>
+            <th width="30%">密码</th>
+            <th width="15%">剩余流量</th>
             <th width="10%">操作</th>
             </tr>
             </thead>                
@@ -87,12 +89,33 @@
                     <td>{$v.expire|date='Y-m-d H:i:s', ###}</td> 
                     <td>{$v.port}</td> 
                     <td>{$v.sspass}</td>
+                    <td>1232G</td>
                     <td>
-                    <a orderId="{$v.id}" id="payorder" class="btn btn-primary btnPayOrder"  href="javascript:void(0);">修改密码</a>
+                    <a orderId="{$v.id}" id="payorder" class="btn btn-primary btnPayOrder"  href="{:U('UserCenter/changesspwd', '', '')}">修改密码</a>
                     </td>
                 </tr>
             </volist>
             </tbody>
+            </table>
+
+        <h3>服务器地址</h3>
+        <table class="table table-bordered table-hover" >
+                <thead>
+                <tr>
+                <th width="10%">id</th>
+                <th width="30%">地址</th>
+                <th width="10%">系统状态</th>
+                </tr>
+                </thead>                
+                <tbody>
+                <volist name="servers" id="v">
+                    <tr>
+                        <td>{$i}</td> 
+                        <td>{$v.domain}</td> 
+                        <td>{$v.hoststatus}</td> 
+                    </tr>
+                </volist>
+                </tbody>
         </table>
     </case>
     <case value="money">
@@ -188,6 +211,41 @@
                 <div class="control-group">
                         <div class="controls">
                                 <button id="btnChpw" type="button" class="btn btn-primary">确定</button>
+                        </div>
+                </div>
+            </fieldset>
+        </form>
+    </case>
+    <case value="changesspwd">
+        <h3>密码修改</h3>
+        <form id="changesspwdform" method="post" class="form-horizontal" action="{:U('UserCenter/changesspwd', '', '')}" />
+            <fieldset>
+
+                <div class="control-group">
+                        <label class="control-label" for="newPassword">新密码</label>
+                        <div class="controls">
+                                <input type="password" id="newPassword" name="newPassword" >
+                                <span class="help-inline"></span>
+                        </div>
+                </div>
+
+                <div class="control-group">
+                        <label class="control-label" for="newPassword2">确认密码</label>
+                        <div class="controls">
+                                <input type="password" id="newPassword2" name="newPassword2" >
+                                <span class="help-inline"></span>
+                        </div>
+                </div>
+                 <label class="control-label" for="inviteCode">验证码</label>
+                <div class="controls">
+                  <input type="text" class="input-small" name="verify">
+                  <span class="help-inline"><img id="verifyCode" src="{:U('UserCenter/verity', '', '')}"> </span>
+                </div>
+
+                <br/>
+                <div class="control-group">
+                        <div class="controls">
+                                <button id="btnChsspw" type="button" class="btn btn-primary">确定</button>
                         </div>
                 </div>
             </fieldset>

@@ -24,9 +24,6 @@ def getrandom(number):
         m2.update("{0}{1}".format(time.time(), random()))
         cardpass.append(m2.hexdigest())
 
-
-
-
 def main():
     if len(sys.argv) < 2:
         print "{0} money number".format(sys.argv[0])
