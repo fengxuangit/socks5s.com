@@ -3,6 +3,10 @@
 <script type="text/javascript">
     var logincheck = "{:U('Login/login','', '')}"
     var loginsuccredirectUrl = "{:U('UserCenter/index','', '')}";
+    var forgoturl = "{:U('Login/forgot','', '')}";
+    var forgot2url = "{:U('Login/forgot2','', '')}";
+    var registerUrl = "{:U('Login/register','', '')}";
+    var reseturl = "{:U('Login/reset','', '')}";
 </script>
 
 <script src="__PUBLIC__/js/login.js" ></script>
@@ -10,47 +14,158 @@
 
 
 
-<h3 class="text-muted"><a href="index.htm" >SS-Link SS账号</a></h3>
+<h3 class="text-muted"><a href="{:U('/'), '', ''}" >SS-Link SS账号</a></h3>
 </div>
-<div>
+<switch name="loginmode">
 
-    <form class="form" id="frmLogin">
-            <fieldset>
-            <legend>登录</legend>
-            <div class="control-group">
-                    <label class="control-label" for="email">Email </label>
-                    <div class="controls">
-                            <input type="text" class="input-large" id="email" name="email">
-                            <span class="help-inline"></span>
-                    </div>
+    <case value="register">
+         <fieldset>
+          <legend>新用户注册</legend>
+          <div class="control-group">
+          <label class="control-label" for="email">Email </label>
+          <div class="controls">
+                  <input type="text" class="input-large" value="" id="email" name="email">
+                  <span class="help-inline"></span>
+          </div>
+          <label class="control-label" for="password">您的密码</label>
+          <div class="controls">
+                  <input type="password" class="input-small" id="password" name="password">
+                  <span class="help-inline"></span>
+          </div>
+          <label class="control-label" for="password2">再输一遍密码</label>
+          <div class="controls">
+                  <input type="password" class="input-small" id="password2" name="password2">
+                  <span class="help-block"></span>
+          </div>
+                <label class="control-label" for="inviteCode">邀请码(可以不填)</label>
+          <div class="controls">
+                  <input type="text" class="input-small" id="inviteCode" name="inviteCode">
+                  <span class="help-inline"> </span>
+          </div>
+          <label class="control-label" for="inviteCode">验证吗</label>
+          <div class="controls">
+                  <input type="text" class="input-small" name="verify">
+                  <span class="help-inline"><img id="verifyCode" src="{:U('Login/verity', '', '')}"> </span>
+          </div>
             </div>
-            <div class="control-group">
-                    <label class="control-label" for="password">密码</label>
-                    <div class="controls">
-                            <input type="password" class="input-small" id="password" name="password">
-                            <span class="help-inline"> <a href="forgot.htm" >密码忘了?</a></span>
-                    </div>
-            </div>
 
-            <div class="control-group">
-                    <div class="controls">
-                    <label class="checkbox inline"><input type="checkbox">记住我 </label>
-                    </div>
-            </div>
+          <div class="form-actions">
+          <br/>
+                  <button type="submit" class="btn btn-primary" id="signup">注册</button>
+          </div>
+          </fieldset>
+
+    </case>
 
 
+    <case value="login">
+        <div>
+
+                <fieldset>
+                <legend>登录</legend>
+                <div class="control-group">
+                        <label class="control-label" for="email">Email </label>
+                        <div class="controls">
+                                <input type="text" class="input-large" id="email" name="email">
+                                <span class="help-inline"></span>
+                        </div>
+                </div>
+
+                <div class="control-group">
+                        <label class="control-label" for="password">密码</label>
+                        <div class="controls">
+                                <input type="password" class="input-small" id="password" name="password">
+                                <span class="help-inline"> <a href="{:U('Login/forgot', '', '')}" >密码忘了?</a></span>
+                        </div>
+                </div>
+
+                <label class="control-label" for="inviteCode">验证码</label>
+                  <div class="controls">
+                          <input type="text" class="input-small" name="verify">
+                          <span class="help-inline"><img id="verifyCode" src="{:U('Login/verity', '', '')}"> </span>
+                  </div>
+
+
+                <div class="control-group">
+                        <div class="controls">
+                        <label class="checkbox inline"><input type="checkbox">记住我 </label>
+                        </div>
+                </div>
+
+
+                <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" id="login">登录</button>
+                        &nbsp;&nbsp; 
+                </div>
+                </fieldset>
+    </div>
+    </case>
+    <case value="forgot">
+    <div>
+        <fieldset>
+        <legend>邮箱验证</legend>
+        <div class="control-group">
+        <label class="control-label" for="email">Email </label>
+        <div class="controls">
+        请输入您的邮箱: <input type="text" class="input-large" id="email" name="email">
+        <span class="help-inline"></span>
+        </div>
+        </div>
+        <br/>
+        <div class="form-actions">
+                <button class="btn btn-primary" id="findpwd" value="1" />找回密码</button>
+                &nbsp;&nbsp; 
+        </div>
+        </fieldset>
+    </div>
+    </case>
+    <case value="forgot_2">
+    <div>
+        <fieldset>
+        <legend>邮箱验证码验证</legend>
+        <div class="control-group">
+                <label class="control-label" for="email">验证码 </label>
+                <div class="controls">
+                  请输入您的验证码:  <input type="text" class="input-large" id="verify" name="verify">
+                <span class="help-inline"></span>
+                </div>
+        </div>
+
+
+        <br/>
+        <div class="form-actions">
+                <button  class="btn btn-primary" id="getcode">确定提交</button>
+                &nbsp;&nbsp; 
+        </div>
+        </fieldset>
+        </form>
+    </div>
+    </case>
+    <case value="reset">
+       <fieldset>
+            <legend>密码重置</legend>
+          <label class="control-label" for="password">您的密码</label>
+          <div class="controls">
+                  <input type="password" class="input-small" id="password" name="newPassword">
+                  <span class="help-inline"></span>
+          </div>
+          <label class="control-label" for="password2">再输一遍密码</label>
+          <div class="controls">
+                  <input type="password" class="input-small" id="password2" name="newPassword2">
+                  <span class="help-block"></span>
+          </div>
             <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" id="login">登录</button>
+                    <button type="submit" class="btn btn-primary" id="reset">确定修改</button>
                     &nbsp;&nbsp; 
             </div>
-            </fieldset>
-    </form>
-</div>
-
+        </fieldset>
+    </case>
+</switch>
 <br/>
 <div id="message" style="display:None">
 
 </div>
+
 
 <include file="./Apps/Home/View/footer.html" />
 
