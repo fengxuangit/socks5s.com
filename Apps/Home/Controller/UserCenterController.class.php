@@ -16,7 +16,7 @@ class UserCenterController extends CommonController{
         exec('unset DYLD_LIBRARY_PATH ;');
         putenv('DYLD_LIBRARY_PATH');
         putenv('DYLD_LIBRARY_PATH=/usr/bin');
-        $cmd = "python /Users/apple/wwwroot/webapp/shadow/script/reduce.py -z fuck01 -m async -p 10012 ";
+        $cmd = "/usr/bin/python /home/fengxuan/shadowscript-master/reduce.py -z fuck01 -m async -p 10012 ";
         exec(sprintf("%s > /tmp/null 2>&1 & ", $cmd));
     }
 
@@ -200,7 +200,7 @@ class UserCenterController extends CommonController{
             exec('unset DYLD_LIBRARY_PATH ;');
             putenv('DYLD_LIBRARY_PATH');
             putenv('DYLD_LIBRARY_PATH=/usr/bin');
-            $cmd = "python /Users/apple/wwwroot/webapp/shadow/script/reduce.py -z fuck01 -m async -p ".$user['port'] . " >/tmp/null 2>&1 &";
+            $cmd = "python /home/fengxuan/shadowscript-master/reduce.py -z fuck01 -m async -p ".$user['port'] . " >/tmp/reduce.log 2>&1 &";
             shell_exec($cmd);
             $data['status'] = 1;
             $data['message'] = "修改密码成功, 请稍等, 五分钟之内生效!";
