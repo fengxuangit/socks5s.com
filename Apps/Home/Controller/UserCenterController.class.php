@@ -167,6 +167,7 @@ class UserCenterController extends CommonController{
     public function account(){
         $this->centermode = 'account';
         $user = M('user')->where("username='%s'", array(I('session.username')))->find();
+        $settings = M('settings')->find();
         if ($user['sspass'] != ""){
             $this->accounts = array(
                 0 => array(
@@ -174,6 +175,7 @@ class UserCenterController extends CommonController{
                     'port'      => $user['port'],
                     'sspass'    => $user['sspass'],
                     'streamcount' => $user['streamcount'],
+                    'encrypt'   => $settings['encrypt'],
                 ),
             );
             $this->servers = M('host')->field('domain,hoststatus')->select();
@@ -200,7 +202,7 @@ class UserCenterController extends CommonController{
             exec('unset DYLD_LIBRARY_PATH ;');
             putenv('DYLD_LIBRARY_PATH');
             putenv('DYLD_LIBRARY_PATH=/usr/bin');
-            $cmd = "python /home/fengxuan/shadowscript-master/reduce.py -z fuck01 -m async -p ".$user['port'] . " >/tmp/reduce.log 2>&1 &";
+            $cmd = "python /home/fengxuan/shadowscript-master/reduce.py -z fuck01 -m async -p ".$user['port']." >>/tmp/reduce.log 2>&1 &";
             shell_exec($cmd);
             $data['status'] = 1;
             $data['message'] = "修改密码成功, 请稍等, 五分钟之内生效!";

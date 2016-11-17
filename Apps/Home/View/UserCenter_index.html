@@ -74,11 +74,12 @@
         <table class="table table-bordered table-hover" >
             <thead>
             <tr>
-            <th width="10%">id</th>
-            <th width="35%">到期时间</th>
+            <th width="5%">id</th>
+            <th width="28%">到期时间</th>
             <th width="10%">端口号</th>
             <th width="30%">密码</th>
-            <th width="15%">剩余流量</th>
+            <th width="10%">剩余流量</th>
+            <th width="18%">加密方式</th>
             <th width="10%">操作</th>
             </tr>
             </thead>                
@@ -89,7 +90,8 @@
                     <td>{$v.expire|date='Y-m-d H:i:s', ###}</td> 
                     <td>{$v.port}</td> 
                     <td>{$v.sspass}</td>
-                    <td>1232G</td>
+                    <td>{$v['streamcount']/1024/1024|round=###,2}G</td>
+                    <td>{$v.encrypt}</td>
                     <td>
                     <a orderId="{$v.id}" class="btn btn-primary btnPayOrder"  href="{:U('UserCenter/changesspwd', '', '')}">修改密码</a>
                     </td>
@@ -135,7 +137,7 @@
             <volist name="moneys" id="v">
                 <tr>
                     <td>{$i}</td>
-                    <td>{$v.money}</td>
+                    <td>{$v.money} 元</td>
                     <td>{$v.create_at|date='Y-m-d H:i:s', ###}</td> 
                 </tr>
             </volist>
