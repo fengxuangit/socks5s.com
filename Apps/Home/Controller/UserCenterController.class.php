@@ -187,6 +187,42 @@ class UserCenterController extends CommonController{
     public function account(){
         $this->centermode = 'account';
         $user = M('user')->where("username='%s'", array(I('session.username')))->find();
+        if (IS_POST){
+            if (!checkToken(I('post.token'))){
+                $data['status'] = 0;
+                $data['message'] = "请勿重复提交";
+                $data['url'] = U('UserCenter/recharge');
+                $this->ajaxReturn($data);
+            }
+
+            if ($user['freeuse']){
+                $data['status'] = 0;
+                $data['message'] = "对不起,您已经试用过了!";
+                $this->ajaxReturn($data);
+            }
+
+            $account =  M('ssaccount')->where("status=0")->order('port desc')->find();
+            if ($account === null){
+                $response['status'] = 0;
+                $response['message'] =  "ss账号库存已无,请联系管理员!";
+                $this->ajaxReturn($response);
+            }
+            //更新使用时间,ss账号
+            M('user')->where("username='%s'", array(I('session.username')))->setField(array(
+                    'port'=>$account['port'], 
+                    'sspass'=>$account['pass'], 
+                    'buytime'=> 1, //一天
+                    'streamcount'=> 1048576, //1G
+                    'freeuse'   => 1,
+                )
+            );
+            M('ssaccount')->where("port=%d", array($account['port']))->setField('status', 1);           
+
+            $data['status'] = 1;
+            $data['message'] = "申请试用成功!";
+            $data['url'] = U('UserCenter/account', '', '');
+            $this->ajaxReturn($data);
+        }
         $settings = M('settings')->find();
         if ($user['sspass'] != ""){
             $this->accounts = array(
@@ -198,8 +234,10 @@ class UserCenterController extends CommonController{
                     'encrypt'   => $settings['encrypt'],
                 ),
             );
-            $this->servers = M('host')->field('domain,hoststatus')->select();
         }
+        creatToken();
+        //始终显示服务器信息
+        $this->servers = M('host')->field('domain,hoststatus')->select();
         $this->display('index');
     }
 
@@ -277,17 +315,5 @@ class UserCenterController extends CommonController{
         $this->moneys = M('recharge')->where("user='%s'", array(I('session.username')))->select();
         $this->display('index');
     }
-
-
-
-    public function verity(){
-        $config = array(
-            'fontSize' => '18',
-            'length' => 3,
-            'useNoise' => false,
-        );
-        $verify = new \Think\Verify($config);
-        $verify->entry();
-}
 
 }

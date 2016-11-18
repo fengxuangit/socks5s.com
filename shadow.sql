@@ -93,7 +93,7 @@ CREATE TABLE `s_recharge` (
   `create_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `i_user` (`user`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -120,7 +120,7 @@ CREATE TABLE `s_records` (
   `time` int(11) NOT NULL,
   `money` float NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,6 +129,7 @@ CREATE TABLE `s_records` (
 
 LOCK TABLES `s_records` WRITE;
 /*!40000 ALTER TABLE `s_records` DISABLE KEYS */;
+INSERT INTO `s_records` VALUES (8,'hacktext@163.com',1,30,1479447589,10),(9,'hacktext@163.com',1,30,1479447616,10),(10,'hacktext@163.com',1,30,1479447838,10),(11,'hacktext@163.com',1,360,1479449756,100),(12,'hacktext@163.com',1,30,1479449823,10),(13,'hacktext@163.com',1,360,1479450082,100),(14,'hacktext@163.com',1,360,1479450141,100),(15,'hacktext@163.com',1,30,1479450354,10),(16,'hacktext@163.com',1,30,1479450391,10),(17,'hacktext@163.com',1,30,1479450493,10),(18,'hacktext@163.com',1,30,1479457455,10),(19,'hacktext@163.com',1,30,1479462220,10),(20,'978348306@qq.com',1,30,1479469085,10),(21,'978348306@qq.com',1,30,1479469159,10);
 /*!40000 ALTER TABLE `s_records` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,7 +157,7 @@ CREATE TABLE `s_settings` (
 
 LOCK TABLES `s_settings` WRITE;
 /*!40000 ALTER TABLE `s_settings` DISABLE KEYS */;
-INSERT INTO `s_settings` VALUES (1,10,'http://t.cn/RffKOgP','fuck01,','rc4-md5');
+INSERT INTO `s_settings` VALUES (1,10,'a:2:{i:7;s:19:\"http://t.cn/RffKOgP\";i:70;s:19:\"http://t.cn/RfMxowQ\";}','fuck01,','rc4-md5');
 /*!40000 ALTER TABLE `s_settings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,7 +176,7 @@ CREATE TABLE `s_ssaccount` (
   PRIMARY KEY (`id`),
   KEY `i_port` (`port`),
   KEY `i_pass` (`pass`)
-) ENGINE=InnoDB AUTO_INCREMENT=10637 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,43 +185,6 @@ CREATE TABLE `s_ssaccount` (
 
 LOCK TABLES `s_ssaccount` WRITE;
 /*!40000 ALTER TABLE `s_ssaccount` DISABLE KEYS */;
-/*!40000 ALTER TABLE `s_ssaccount` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `s_user`
---
-
-DROP TABLE IF EXISTS `s_user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `s_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `invitecode` char(32) DEFAULT NULL,
-  `balance` float DEFAULT '0',
-  `created_at` int(11) NOT NULL,
-  `buytime` int(11) DEFAULT '0',
-  `port` int(11) DEFAULT NULL,
-  `sspass` char(32) DEFAULT NULL,
-  `emailverify` varchar(20) DEFAULT NULL,
-  `streamcount` int(20) DEFAULT NULL,
-  `zone` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`,`email`),
-  KEY `i_port` (`port`),
-  KEY `i_pass` (`sspass`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `s_user`
---
-
-LOCK TABLES `s_user` WRITE;
-/*!40000 ALTER TABLE `s_user` DISABLE KEYS */;
 /*!40000 ALTER TABLE `s_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -233,4 +197,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-17 22:19:47
+-- Dump completed on 2016-11-19 11:13:20

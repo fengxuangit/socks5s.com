@@ -326,6 +326,35 @@ $(function(){
      });
 
 
+    $('.btnFreeUse').click(function () {
+        if(window.confirm('你确定要申请试用吗?') == false){
+            return false;
+        }
+
+        var requestData = {'token': $("input[name='token']").val(), 'submit': 1};
+
+        AjaxReturn(accountUrl, requestData,
+            function(response){
+                if (response['status'] == 1){
+                    $("#message").html(palert(response['message'], "success")).show();
+                }else if(response['status'] == 0){
+                    $("#message").html(palert(response['message'], "error")).show();
+                }
+                if (response['url'] != null){
+                    setTimeout(function () { 
+                        window.location.href = response['url'];    
+                    }, 1000);
+                }
+            },
+            function (jqXHR, textStatus, errorThrown){
+                alert(jqXHR);
+                alert(textStatus);
+                alert(errorThrown);
+            }
+        );
+
+    });
+
 });
 
 

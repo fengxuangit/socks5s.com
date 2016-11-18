@@ -6,6 +6,7 @@
     var LoginUrl = "{:U('Login/login', '', '')}";
     var rechargeUrl = "{:U('UserCenter/recharge', '', '')}";
     var orderUrl = "{:U('UserCenter/orders', '', '')}";
+    var accountUrl = "{:U('UserCenter/account', '', '')}";
 </script>
 
 <switch name="centermode">
@@ -70,8 +71,7 @@
     </case>
     <case value="account">
     <h3>我的账号</h3>
-        
-
+    <if condition="$accounts neq null">
         <table class="table table-bordered table-hover" >
             <thead>
             <tr>
@@ -100,7 +100,10 @@
             </volist>
             </tbody>
             </table>
-
+    <else />
+         <input type="hidden" name="token" value="{:session('token')}">
+        <button class="btn btn-primary btnFreeUse"  href="{:U('UserCenter/freeuse', '', '')}">申请免费试用</button>
+    </if>
         <h3>服务器地址</h3>
         <table class="table table-bordered table-hover" >
                 <thead>
@@ -124,9 +127,8 @@
     <case value="money">
 
         <h3>充值记录</h3>
-        
 
-        <table class="table table-bordered table-hover" >
+        <table class="table table-bordered table-hover">
             <thead>
             <tr>
             <th width="10%">id</th>
@@ -201,7 +203,29 @@
         </div>
     </case>
     <case value="problem">
-
+        <div class="control-group" style="font-size:16px">
+                <label class="control-label" >如何充值</label>
+                <p>
+                再充值选项卡中点击你要充值面额对应的链接，
+                比如点击到 7 元的充值链接跳转到这个页面：
+                <img src="__PUBLIC__/img/pic.jpg">
+                </p>
+                <p>
+                    这里选择你的购买的数量
+                </p>
+                <img src="__PUBLIC__/img/pic2.jpg">
+                <p>
+                    确认完毕之后，点击付款，即可扫码付款，
+                    付款完成之后，点击查看卡密就会出现卡密
+                </p>
+                <img src="__PUBLIC__/img/pic3.jpg">
+                <p>将这个填入网站充值里面即可成功充值</p>
+                <img src="__PUBLIC__/img/pic4.jpg">
+                <p>
+                    
+                    有任何问题请发邮件到f4ngxuan520@gmail.com，我会在最快时间为你解答！
+                </p>
+        </div>
     </case>
     <case value="changepwd">
         <h3>密码修改</h3>
@@ -240,7 +264,7 @@
         </form>
     </case>
     <case value="changesspwd">
-        <h3>密码修改</h3>
+        <h3>SS账号密码修改</h3>
         <form id="changesspwdform" method="post" class="form-horizontal" action="{:U('UserCenter/changesspwd', '', '')}" />
             <fieldset>
 
@@ -275,6 +299,9 @@
         </form>
     </case>
     <case value="changeemail">
+    </case>
+
+    <case value="freeuse">
     </case>
 </switch>
 
