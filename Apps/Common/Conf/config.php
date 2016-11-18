@@ -6,10 +6,9 @@ return array(
     'DEFAULT_TIMEZONE'=>'Asia/ShangHai',//time setting
     'SESSION_AUTO_START' => true, //是否开启session
     'DEFAULT_AJAX_RETURN' => 'JSON', //默认ajax返回格式 JSON
-    'SHOW_PAGE_TRACE'  => True, // 显示页面Trace信息
+    'SHOW_PAGE_TRACE'  => false, // 显示页面Trace信息
     'AUTHCODE'         =>   '1e38de0a85d4178ac353e165aabba0ab', //
     'URL_MODEL'        => 2,
-    'SESSION_OPTIONS'  => array('path'=>'/tmp/phpsession'),
 
     //Tempate setting
     'TMPL_PARSE_STRING' => array(

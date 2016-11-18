@@ -132,7 +132,7 @@ $(function(){
 
     //充值
     $('#btnrecharge').click(function (){
-        var requestData = {"cardnum": $('#cardnum').val(), "cardpass":$('#cardpass').val()};
+        var requestData = {"cardnum": $('#cardnum').val(), "cardpass":$('#cardpass').val(), "token": $("input[name='token']").val()};
         AjaxReturn(rechargeUrl, requestData, 
             function(response){
                 if (response['status'] == 1){
@@ -158,11 +158,10 @@ $(function(){
 
     //余额支付按钮
     $('#payorder').click(function (){
+        
+        var requestData = {'id':$('#payorder').attr('orderId'), 'token': $("input[name='token']").val()};
 
-        var id  = $('#payorder').attr('orderId');
-
-
-        AjaxReturn(orderUrl, {'id':id}, 
+        AjaxReturn(orderUrl, requestData, 
             function(response){
                 if (response['status'] == 1){
                     $("#message").html(palert(response['message'], "success")).show();

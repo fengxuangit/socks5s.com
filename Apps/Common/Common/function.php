@@ -17,12 +17,12 @@ function GetMoneyCount($month, $price){
 
 function streamCount($money){
     switch ($money) {
-        case 7:
+        case 10:
             return 30 * 1024 * 1024;
             break;
-        case 70:
+        case 100:
             return 60 * 1024 * 1024;
-        break;
+            break;
     }
 }
 
@@ -156,6 +156,23 @@ function authcode($string, $operation = 'DECODE', $key = '', $expiry = 0) {
 function check_verity($code, $id=''){
     $verity =  new \Think\Verify(); 
     return $verity->check($code, $id);
+}
+
+
+//创建TOKEN
+function creatToken() {
+    $code = chr(mt_rand(0xB0, 0xF7)) . chr(mt_rand(0xA1, 0xFE)) . chr(mt_rand(0xB0, 0xF7)) . chr(mt_rand(0xA1, 0xFE)) . chr(mt_rand(0xB0, 0xF7)) . chr(mt_rand(0xA1, 0xFE));
+    session('token', authcode($code, 'ENCODE', C('AUTHCODE')));
+}
+
+//判断TOKEN
+function checkToken($token) {
+    if ($token == session('token')) {
+        session('token', NULL);
+        return TRUE;
+    } else {
+        return FALSE;
+    }
 }
 
 

@@ -13,11 +13,13 @@ class UserCenterController extends CommonController{
 
         
     public function test(){
-        exec('unset DYLD_LIBRARY_PATH ;');
-        putenv('DYLD_LIBRARY_PATH');
-        putenv('DYLD_LIBRARY_PATH=/usr/bin');
-        $cmd = "/usr/bin/python /home/fengxuan/shadowscript-master/reduce.py -z fuck01 -m async -p 10012 ";
-        exec(sprintf("%s > /tmp/null 2>&1 & ", $cmd));
+        $str = array(
+                7 => 'http://t.cn/RffKOgP',
+                70 => 'http://t.cn/RfMxowQ',
+            );
+        $data = serialize($str);
+        print_r($data);
+
     }
 
     
@@ -59,10 +61,14 @@ class UserCenterController extends CommonController{
         $this->centermode = 'orders';
         $username = I('session.username');
         if (IS_POST){
+            if (!checkToken(I('post.token'))){
+                $data['status'] = 0;
+                $data['message'] = "请不要重复提交!";
+                $data['url'] = U('UserCenter/recharge');
+                $this->ajaxReturn($data);
+            }
             //返回状态
             $response = array();
-            //更新订单状态
-            $flag = M('records')->where('id=%d',array(I('post.id')))->setField('ispay', 1);
             //获取订单信息
             $records = M('records')->where('id=%d',array(I('post.id')))->find();
             //找到这个用户
@@ -72,6 +78,8 @@ class UserCenterController extends CommonController{
                 $response['message'] =  "账号余额不足";
                 $this->ajaxReturn($response);
             }
+            //更新订单状态
+            $flag = M('records')->where('id=%d',array(I('post.id')))->setField('ispay', 1);
             //判断这个用户没有购买记录,新添记录
             if ($user['port'] == 0){
                 //取一个没有使用过的ss账号
@@ -87,13 +95,18 @@ class UserCenterController extends CommonController{
                         'sspass'=>$account['pass'], 
                         'buytime'=>$records['buytime'], 
                         'balance'=>$user['balance']-$records['money'],
-                        'streamcount'=>streamCount($records['money']),
+                        'streamcount'=> streamCount($records['money']),
                         )
                 );
                 M('ssaccount')->where("port=%d", array($account['port']))->setField('status', 1);
             }else{
             //已经有了购买记录，只添加时间。
-                $flag = M('user')->where("username='%s'", array(I('session.username')))->setField(array('buytime'=> $records['buytime'], 'balance'=>$user['balance']-$records['money']));
+                $flag = M('user')->where("username='%s'", array(I('session.username')))->setField(array(
+                            'buytime'   => $user['buytime'] + $records['buytime'], 
+                            'balance'   => $user['balance'] - $records['money'],
+                            'streamcount' => $user['streamcount'] + streamCount($records['money']),
+                            )
+                    );
                 if ($flag){
                     $response['status'] = 1;
                     $response['message'] =  "支付成功";
@@ -123,7 +136,7 @@ class UserCenterController extends CommonController{
             $response['url'] =  U('UserCenter/orders', '', '');;
             $this->ajaxReturn($response);
         }
-        
+        creatToken();
         //查找用户账户余额
         $this->balance = M('user')->where("username='%s'",array($username))->getField('balance');
         $this->pay = M('records')->where("user='%s' and ispay=0",array($username))->order('time desc')->select();
@@ -137,6 +150,12 @@ class UserCenterController extends CommonController{
     public function recharge(){
         $this->centermode = 'recharge';
         if (IS_POST){
+            if (!checkToken(I('post.token'))){
+                $data['status'] = 0;
+                $data['message'] = "请勿重复提交";
+                $data['url'] = U('UserCenter/recharge');
+                $this->ajaxReturn($data);
+            }
             //查找输入的卡密是否存在
             $card = M('cardpass')->where("cardnum='%s' and cardpass='%s'", array(I('post.cardnum'), I('post.cardpass')))->find();
             if ($card){
@@ -159,7 +178,8 @@ class UserCenterController extends CommonController{
             }
             $this->ajaxReturn($data);
         }
-        $this->buylink = M('settings')->find()['buylink'];
+        creatToken();
+        $this->buylink = unserialize(M('settings')->find()['buylink']);
         $this->display('index');
     }
 
@@ -202,7 +222,7 @@ class UserCenterController extends CommonController{
             exec('unset DYLD_LIBRARY_PATH ;');
             putenv('DYLD_LIBRARY_PATH');
             putenv('DYLD_LIBRARY_PATH=/usr/bin');
-            $cmd = "python /home/fengxuan/shadowscript-master/reduce.py -z fuck01 -m async -p ".$user['port']." >>/tmp/reduce.log 2>&1 &";
+            $cmd = "/bin/bash /home/shadows/shadowscript-master/reduce.sh ".$user['port']." >>/tmp/reduce.log 2>&1 &";
             shell_exec($cmd);
             $data['status'] = 1;
             $data['message'] = "修改密码成功, 请稍等, 五分钟之内生效!";
