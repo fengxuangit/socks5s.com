@@ -155,7 +155,6 @@ $(function(){
 
     });
 
-
     //余额支付按钮
     $('#payorder').click(function (){
         
@@ -180,10 +179,44 @@ $(function(){
                 alert(errorThrown);
             }
         );
+    });
 
+
+    $('.btnRenew').click(function (){
+        if(window.confirm('你确定要续费加量?') == false){
+            return false;
+        }
+
+        var response = {'port':$(this).attr('orderId'), 'token':$("input[name='token']").val()};
+
+
+        AjaxReturn(rechangesstUrl, response, 
+            function(response){
+                if (response['status'] == 1){
+                    $("#message").html(palert(response['message'], "success")).show();
+                }else if(response['status'] == 0){
+                    $("#message").html(palert(response['message'], "error")).show();
+                }
+                if (response['url'] != null){
+                    setTimeout(function () { 
+                        window.location.href = response['url'];    
+                    }, 2000);
+                }
+            },
+            function (jqXHR, textStatus, errorThrown){
+                alert(jqXHR);
+                alert(textStatus);
+                alert(errorThrown);
+            }
+        );
 
     });
 
+
+    $('.btn-changesspwd').click(function (){
+        $("input[name='ssport']").val($(this).attr('orderId'));
+        $('#changesspwds').show();
+    });
 
     //取消订单按钮
 
@@ -302,7 +335,7 @@ $(function(){
             alert("对不起,两次密码不一致!");
             return false;
         }
-        var request = {"newPassword":$('#newPassword').val(), 'verify':$("input[name='verify']").val()};
+        var request = {"newPassword":$('#newPassword').val(), 'verify':$("input[name='verify']").val(), 'ssport': $("input[name='ssport']").val()};
 
         AjaxReturn(changesspwdUrl, request,
             function(response){

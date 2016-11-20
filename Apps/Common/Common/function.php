@@ -26,7 +26,13 @@ function streamCount($money){
     }
 }
 
-
+function ssaync($port){
+    exec('unset DYLD_LIBRARY_PATH ;');
+    putenv('DYLD_LIBRARY_PATH');
+    putenv('DYLD_LIBRARY_PATH=/usr/bin');
+    $cmd = "/bin/bash /Users/apple/wwwroot/webapp/shadowscript/reduce.sh ".$port." >>/tmp/reduce.log 2>&1 &";
+    return shell_exec($cmd);
+}
 
 //发送邮件
 function SendMail($address, $title, $message){
