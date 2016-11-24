@@ -1,13 +1,12 @@
 <include file="./Apps/Home/View/header.html" />
 
+
       <h3 class="text-muted"><a href="{:U('/'), '', ''}" >SS账号</a></h3>
       </div>
 <switch name="indexmode">
 <case value="index">
       <div class="jumbotron">
         <h2>专业提供Shadowsocks账号</h2>
-
-
             <p>北美/欧洲/亚洲(日本新加坡)多条国际线路随意切换，不限次数，总有一条线路适合您！</p>
                 <p>7元/月，70元/年，支持UDP转发，可供多台设备同时使用。</p>
                 <p>
@@ -33,12 +32,6 @@
         </div>
       </div>
 
-        <!--
-         <div class="alert alert-warning alert-dismissible fade in" role="alert"> 
-                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button> 
-                 <strong>敬告客户！</strong> 
-         </div>
-        -->
 </case>
 <case value="buy">
   
@@ -136,33 +129,58 @@ Shadowsocks 官方主页：https://shadowsocks.org/
   <div class="entry-content">
     <p>SS的全称是Shadowsocks，是一种轻量级的加密的socks5网络代理，经本人测试速度比VPN快很多，观看YouTube视频非常流畅，是迄今为止最快的科学工具。下面分别介绍在Windows, Mac OS X, Linux, iOS, Android等系统下怎样使用Shadowsocks科学上网。</p>
 <p>1.获取SS账号</p>
-<p>首先要有一个Shadowsocks账号（SS账号）。没有SS账号？新浪微博关注 @SS加速 和@SS香港  。或者看<a href="https://www.ssjiasu.xyz/trial" target="_blank">www.ssjiasu.xyz/trial</a> 获取免费的试用SS账号。</p>
-<p>另外，在开始配置之前和配置之后，可以<a href="/archives/124">用ip111.cn这样验证</a>一下能否科学上网，用什么方式科学上网的。</p>
+<p>首先要有一个Shadowsocks账号（SS账号）。注册网站即可以免费试用<a href="{:U('Login/login')}" target="_blank">登录</a> 获取免费的试用SS账号。</p>
+
 <p>2. Windows系统</p>
-<p>到 <a href="https://gfw88.xyz/dl/Windows/">https://gfw88.xyz/dl/Windows/</a> 下载SS客户端软件，任何一个即可。下载完成后解压缩，建议把可执行文件拷贝到一个固定的目录下，比如D:\SS\ 。</p>
+<p>到 <a href="http://fengxuan.com/webapp/shadow/Home/Index/download">下载链接</a> 下载SS客户端软件，任何一个即可。下载完成后解压缩，建议把可执行文件拷贝到一个固定的目录下，比如D:\SS\ 。</p>
 <p>双击运行程序，在Windows右下角的图标区域就会多一个像纸飞机一样的图标，这个就是客户端程序，如下图：<br />
 <img class="alignnone size-full wp-image-9" src="https://blog.ssjiasu.xyz/wp-content/uploads/2015/01/ss-icon.png" alt="ss-icon" width="444" height="197" /></p>
 <p>鼠标右键点击这个纸飞机图标，会出现客户端的主菜单，如下图：</p>
 <p><img class="alignnone size-full wp-image-248" src="https://blog.ssjiasu.xyz/wp-content/uploads/2015/01/win-ss.png" alt="win-ss" width="430" height="269" /></p>
-<p>把SS账号的二维码图片显示在电脑上，在Windows的SS客户端上（注意：不是手机）点击“<strong>服务器选择</strong>”，“<strong>扫描屏幕上的二维码</strong>”， 客户端软件会识别屏幕上的二维码自动配置（电脑不需要有摄像头）</p>
+
+点击这里 编辑服务器 <p/>
+
+按照你申请的账号信息填好。然后再右击shadowsocks图标，选择使用系统代理
+
+<img src="__PUBLIC__/img/2.png">
+
 <p>然后点击“<strong>确定</strong>”回到主菜单，选择“<strong>启用代理</strong>”和“<strong>开机启动</strong>”，让这两项前面都有对号，也就是选择上，这样客户端就配置好了。</p>
 <p>在主菜单里面，点击<strong>代理模式</strong>，可以选择<strong>PAC模式</strong>或者<strong>全局模式</strong>，前者的意思是只有访问被墙的网站才通过SS账号访问，国内网站和国外没有被墙的网站不通过SS账号。全局模式则是所有访问都走SS。</p>
-<p>推荐使用Firefox浏览器，打开选项，高级，网络，设置，如下图配置。注意四个红圈。</p>
+<p>Firefox浏览器，打开选项，高级，网络，设置，如下图配置。注意四个红圈。</p>
 <p><img class="alignnone size-full wp-image-256" src="https://blog.ssjiasu.xyz/wp-content/uploads/2015/01/firefox-ss2.png" alt="firefox-ss" width="450" height="580" /></p>
-<p>现在就可以科学上网了，访问<a href="http://ip111.cn">http://ip111.cn</a> 验证一下吧。</p>
+<p>现在就可以科学上网了。</p>
+
+<p>Chrome浏览器需要下载一个插件</p>
+
+Proxy SwitchySharp
+<p/>
+
+<img src="__PUBLIC__/img/3.png">
+
+选择使用系统代理 
+
+<p/>
+
+最后即可上网<br/>
+<img src="__PUBLIC__/img/4.png">
+
+其他同理
+
 <p>3.  Mac OS 系统</p>
-<p>到<a href="https://gfw88.xyz/dl/MacOS/">https://gfw88.xyz/dl/MacOS/</a>下载Mac OS的客户端程序ShadowsocksX并安装运行。主界面如下：</p>
+<p>到<a href="http://fengxuan.com/webapp/shadow/Home/Index/download">下载链接</a> 下载Mac OS的客户端程序ShadowsocksX并安装运行。主界面如下：</p>
 <p><img class="alignnone size-full wp-image-20" src="https://blog.ssjiasu.xyz/wp-content/uploads/2015/01/macselect.png" alt="macselect" width="408" height="317" /></p>
 <p>把二维码显示在屏幕上，点击“从屏幕上扫描二维码&#8230;”，即可识别屏幕上的二维码自动配置。</p>
-<p>点击“打开Shadowsocks”开启SS，然后就可以科学上网了，访问<a href="http://ip111.cn">http://ip111.cn</a> 测试一下吧。</p>
+<p>点击“打开Shadowsocks”开启SS，然后就可以科学上网了。</p>
 <p>4. iOS系统(苹果手机)</p>
-<p>iOS无需越狱，可以安装ShadowRocket或者Surge，任何一个都可以。ShadowRocket价格便宜并且使用方便，主界面如下，点击左上角的方框可以扫描SS账号的二维码，然后点击&#8221;Connected&#8221;后面的开关即可科学上网。有时Settings下面的Global Routing需要选择Proxy。Settings下面的On Demand要关闭，Auto Close也不启用，否则会出现Shadowrocket无法断开的情况。</p>
+<p>iOS无需越狱，可以安装<strong>ShadowRocket</strong>或者Surge，任何一个都可以。ShadowRocket价格便宜并且使用方便，主界面如下，点击左上角的方框可以扫描SS账号的二维码，然后点击&#8221;Connected&#8221;后面的开关即可科学上网。有时Settings下面的Global Routing需要选择Proxy。Settings下面的On Demand要关闭，Auto Close也不启用，否则会出现Shadowrocket无法断开的情况。</p>
 <p><a href="https://blog.ssjiasu.xyz/wp-content/uploads/2015/01/shadowrocket.png"><img class="alignnone wp-image-187 size-medium" src="https://blog.ssjiasu.xyz/wp-content/uploads/2015/01/shadowrocket-169x300.png" alt="shadowrocket" width="169" height="300" /></a></p>
 <p>5. Android系统</p>
-<p>下载并安装 <a href="https://gfw88.xyz/dl/Android/">https://gfw88.xyz/dl/Android/</a> 这里的两个软件，一个是Android SS客户端，一个是扫描二维码需要的软件。两个软件都要安装。运行SS客户端，主界面如下：</p>
+<p>下载并安装 <a href="http://fengxuan.com/webapp/shadow/Home/Index/download">下载链接</a> 这里的两个软件，一个是Android SS客户端，一个是扫描二维码需要的软件。两个软件都要安装。运行SS客户端，主界面如下：</p>
 <p><a href="https://blog.ssjiasu.xyz/wp-content/uploads/2015/03/android-ss.jpg"><img class="alignnone wp-image-93 size-medium" src="https://blog.ssjiasu.xyz/wp-content/uploads/2015/03/android-ss-169x300.jpg" alt="android-ss" width="169" height="300" /></a></p>
 <p>点击左上角的纸飞机标志，然后分别点击“添加配置文件”，“扫描二维码”，出现扫描界面，用手机扫描一下SS账号对应的二维码图片就配置好了。再点击“路由”选择“绕过局域网及中国大陆地址”，最后点击右上角的“关闭/打开”按钮开启和关闭SS。然后就可以科学上网了。</p>
 </case>
 
 </switch>
+
+</div>
 <include file="./Apps/Home/View/footer.html" />
