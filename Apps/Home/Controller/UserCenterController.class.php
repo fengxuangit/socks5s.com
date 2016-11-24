@@ -138,7 +138,7 @@ class UserCenterController extends CommonController{
                 $this->ajaxReturn($data);
             }
             //查找输入的卡密是否存在
-            $card = M('cardpass')->where("cardnum='%s' and cardpass='%s' and status=0", array(I('post.cardnum'), I('post.cardpass')))->find();
+            $card = M('cardpass')->where("cardnum='%s' and cardpass='%s' and status=-1", array(I('post.cardnum'), I('post.cardpass')))->find();
             if ($card){
                 //更新用户的balance 为本次充值的金额
                 M('user')->where("username='%s'", array(I('session.username')))->setInc('balance',$card['money']);

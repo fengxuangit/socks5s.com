@@ -38,14 +38,6 @@ $(function(){
 				}).fail( function(jqXHR, textStatus, errorThrown) {
 					var v=jqXHR;
 					var errmsg=v.responseText;
-						if (v.status == '998'){
-							errmsg='登录失败：账号不存在，如果以前您注册过，<a href="https://blog.ssjiasu.xyz/archives/269">请看这里</a>。或者点击 <a href="/register?email='+$("#email").val()+'">立即注册</a>';
-						}else if(v.status == '994'){
-							errmsg='登录失败：密码不正确。<a href="/forgot?email='+$("#email").val()+'">忘记密码</a>';
-						}else if(v.status == '999'){
-							errmsg='登录失败：账号没有验证，刚才给您重新发了验证邮件，请按邮件内容验证。';
-						}
-
 						var e='<div class="alert alert-block">'
 								+'<button type="button" class="close" data-dismiss="alert">×</button>'
 								+' <h4>错误!</h4>'
