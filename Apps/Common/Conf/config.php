@@ -9,6 +9,7 @@ return array(
     'SHOW_PAGE_TRACE'  => false, // 显示页面Trace信息
     'AUTHCODE'         =>   '1e38de0a85d4178ac353e165aabba0ab', //
     'URL_MODEL'        => 2,
+    'URL_CASE_INSENSITIVE' =>true,
 
     //Tempate setting
     'TMPL_PARSE_STRING' => array(
@@ -21,7 +22,7 @@ return array(
     'DB_HOST' => '127.0.0.1',
     'DB_NAME' => 'shadow',
     'DB_USER' => 'root',
-    'DB_PWD'  => '123480',
+    'DB_PWD'  => 'fuckqq',
     'DB_CHARSET' => 'utf8',
     'DB_PREFIX' => 's_',
     'DB_DEBUG' => TRUE,
@@ -32,9 +33,9 @@ return array(
     'ONE_DAY_UNIX'  => 86400,   //一天的unix时间戳
 
     //EMAIL SETTINGS 
-    'MAIL_ADDRESS'=>'hacktext@163.com', // 邮箱地址
+    'MAIL_ADDRESS'=>'qqq@163.com', // 邮箱地址
     'MAIL_SMTP'=>'smtp.163.com', // 邮箱SMTP服务器
-    'MAIL_LOGINNAME'=>'hacktext@163.com', // 邮箱登录帐号
-    'MAIL_PASSWORD'=>'fengxuan123480', // 邮箱密码
+    'MAIL_LOGINNAME'=>'qqq@163.com', // 邮箱登录帐号
+    'MAIL_PASSWORD'=>'111111', // 邮箱密码
 
 );
